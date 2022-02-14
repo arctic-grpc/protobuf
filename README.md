@@ -60,7 +60,7 @@ end
    that `protoc-gen-elixir` works:
 
     ```bash
-    $ mix escript.install hex protobuf
+    $ mix escript.install git https://github.com/arctic-grpc/protobuf branch arctic-grpc
     ```
 
 3. Generate Elixir code using `protoc`:
@@ -168,12 +168,19 @@ $ protoc --elixir_out=one_file_per_module=true:./lib *.proto
 ### gRPC Support
 
 If you write [services](https://developers.google.com/protocol-buffers/docs/proto#services) in
-protobuf, you can generate [gRPC](https://github.com/tony612/grpc-elixir) code by passing
-`plugins=grpc` in `--elixir_out`:
+protobuf, you can generate [gRPC](https://github.com/tony612/grpc-elixir) or [Arctic gRPC](https://github.com/arctic-grpc/arctic-base) code by passing
+`plugins` option in `--elixir_out`:
 
+#### GPRC
 ```
 $ protoc --elixir_out=plugins=grpc:./lib/ *.proto
 ```
+#### Arctic GPRC
+```
+$ protoc --elixir_out=plugins=arctic_grpc:./lib/ *.proto
+```
+
+
 
 ### Tips for protoc
 
