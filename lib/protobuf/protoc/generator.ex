@@ -58,9 +58,15 @@ defmodule Protobuf.Protoc.Generator do
 
     extension_defmodules = Generator.Extension.generate(ctx, desc, nested_extensions)
 
+    grpc_plugin = Enum.find(ctx.plugins, fn i -> i in ["grpc", "arctic_grpc"] end)
+
     service_defmodules =
-      if "grpc" in ctx.plugins do
-        Enum.map(desc.service, &Generator.Service.generate(ctx, &1))
+      if grpc_plugin do
+        if grpc_plugin == "grpc" do
+          Enum.map(desc.service, &Generator.Service.generate(ctx, &1))
+        else
+          Enum.map(desc.service, &Generator.ArcticService.generate(ctx, &1))
+        end
       else
         []
       end
